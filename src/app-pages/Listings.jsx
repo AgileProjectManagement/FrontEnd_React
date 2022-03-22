@@ -12,6 +12,7 @@ export default function Listings() {
         ]);
       }, 300);
     });
+
     setListings(serverListings);
   }, []);
 

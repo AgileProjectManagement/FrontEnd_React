@@ -13,6 +13,7 @@ export default function App() {
         <Link to="/">Home</Link>
         <Link to="/listings">View Listings</Link>
       </NavBar>
+
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/listings" element={<Listings />} />
