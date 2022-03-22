@@ -1,17 +1,32 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
+import { Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import "./App.css";
 
 import NavBar from "./app-components/NavBar";
 import Home from "./app-pages/Home";
 import Listings from "./app-pages/Listings";
 
+const NavButton = styled(Button)`
+  margin: 0 1rem;
+  a:link,
+  a:visited {
+    text-decoration: none;
+    color: white;
+  }
+`;
+
 export default function App() {
   return (
     <Router>
       <NavBar>
-        <Link to="/">Home</Link>
-        <Link to="/listings">View Listings</Link>
+        <NavButton variant="contained">
+          <Link to="/">Home</Link>
+        </NavButton>
+        <NavButton variant="contained">
+          <Link to="/listings">View Listings</Link>
+        </NavButton>
       </NavBar>
 
       <Routes>
