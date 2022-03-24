@@ -1,5 +1,9 @@
 nav{
+  margin:auto;
+  padding: 2vh 0;
   display:flex;
   flex-flow: row wrap;
+  align-items: baseline;
+  justify-content: center;
 }
 
