@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import { withTheme } from "styled-components";
 
 const theme = createTheme({
   palette: {
@@ -7,6 +8,7 @@ const theme = createTheme({
       main: "#006cff",
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
+      text: "white",
     },
     secondary: {
       light: "#0066ff",

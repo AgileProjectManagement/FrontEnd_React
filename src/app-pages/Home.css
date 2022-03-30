@@ -1,4 +1,30 @@
-.homebody {
-  justify-content: center;
-  flex-direction: row;
+div.slideshow {
+  width: 260px;
+  overflow: hidden;
+  margin: 50px auto;
+  /* background: white; */
+}
+
+div.photobanner {
+  height: 260px;
+  width: 1000px; /*! needs to be width of images combined */
+}
+img {
+  display: inline-block;
+}
+
+.first {
+  animation: bannermove 30s linear infinite;
+}
+
+@keyframes bannermove {
+  0% {
+    margin-left: 0px;
+  }
+  50% {
+    margin-left: -1000px; /*! needs to be width of images combined */
+  }
+  100% {
+    margin-left: 0px;
+  }
 }
