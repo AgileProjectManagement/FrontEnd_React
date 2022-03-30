@@ -1,16 +1,17 @@
 div.slideshow {
-  width: 260px;
+  width: 150px;
   overflow: hidden;
-  margin: 50px auto;
+  margin: 25px auto;
   /* background: white; */
 }
 
 div.photobanner {
-  height: 260px;
-  width: 1000px; /*! needs to be width of images combined */
+  height: 150px;
+  width: 300px; /*! needs to be width of images combined */
 }
 img {
   display: inline-block;
+  height: 150px;
 }
 
 .first {
@@ -22,7 +23,7 @@ img {
     margin-left: 0px;
   }
   50% {
-    margin-left: -1000px; /*! needs to be width of images combined */
+    margin-left: -300px; /*! needs to be width of images combined */
   }
   100% {
     margin-left: 0px;

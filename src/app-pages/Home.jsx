@@ -26,7 +26,8 @@ export default function HomePage() {
       <Grid item direction="row" justifyContent="center">
         <Grid sx={{ display: "inline-block", margin: "7.5px" }} item>
           <Typography sx={{ color: theme.palette.primary.text }} variant="h2">
-            Buy {items[Math.floor(Math.random() * items.length)]} with
+            {Math.floor(Math.random() * items.length) === 1 ? "Buy" : "Sell"}{" "}
+            {items[Math.floor(Math.random() * items.length)]} with
           </Typography>
         </Grid>
         <Grid sx={{ display: "inline-block", margin: "7.5px" }} item>
@@ -46,8 +47,7 @@ export default function HomePage() {
         <div className="photobanner">
           <img className="first" src={bitcoin} />
           <img src={doge} />
-          <img src={bitcoin} />
-          <img src={doge} />
+          <img src={ethereum} />
         </div>
       </Grid>
     </Grid>
