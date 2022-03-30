@@ -1,11 +1,18 @@
+import { Grid } from "@mui/material";
 import React from "react";
+import "./Home.css";
 
 export default function HomePage() {
   return (
-    <section>
-      <h1>Welcome to Lit Offer Up!</h1>
-      <p>This is a placeholder home page.</p>
-      <p>Please move along!</p>
-    </section>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid item>Temp</Grid>
+      <Grid item>Temp</Grid>
+      <Grid item>Temp</Grid>
+    </Grid>
   );
 }
