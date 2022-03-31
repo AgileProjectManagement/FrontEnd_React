@@ -1,13 +1,14 @@
 import { createTheme } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { withTheme } from "styled-components";
 
 const theme = createTheme({
   palette: {
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: red[500],
+      main: "#006cff",
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
+      text: "white",
     },
     secondary: {
       light: "#0066ff",
@@ -22,6 +23,9 @@ const theme = createTheme({
     // two indexes within its tonal palette.
     // E.g., shift from Red 500 to Red 300 or Red 700.
     tonalOffset: 0.2,
+  },
+  typography: {
+    fontFamily: "Nunito",
   },
 });
 
