@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { styled, alpha } from "@mui/material/styles";
-import { AppBar, Toolbar, InputBase, Button, Typography } from "@mui/material";
+import { AppBar, Toolbar, InputBase, Typography, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import "./NavBar.css";
+import MoreIcon from "@mui/icons-material/ExpandCircleDown";
+import { useNavigate } from "react-router-dom";
 
 const CustomToolBar = styled(Toolbar)({
   justifyContent: "space-between",
@@ -48,14 +50,42 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavBar() {
+const Nav = styled("nav")(() => ({
+  display: "flex",
+  flexFlow: "row wrap",
+  alignItems: "baseline",
+  justifyContent: "center",
+}));
+
+const Name = styled(Typography)`
+  cursor: pointer;
+`;
+
+export const NavButton = styled(Button)`
+  margin: 0 1rem;
+  a:link,
+  a:visited {
+    text-decoration: none;
+    color: white;
+  }
+  span {
+    margin: 0;
+    padding: 0;
+  }
+  display: inline-flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default function NavBar({ children }) {
+  const navigate = useNavigate();
   return (
     <AppBar position="static">
       <CustomToolBar>
-        <Typography variant="h6" component="div">
+        <Name variant="h6" component="div" onClick={() => navigate("/")}>
           Lit Offer Up
-        </Typography>
-
+        </Name>
         <Search sx={{ width: "200px" }}>
           <SearchIconWrapper>
             <SearchIcon />
@@ -63,15 +93,25 @@ export default function NavBar() {
           <StyledInputBase
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
+            onClick={() => navigate("/listings")}
           />
         </Search>
-
-        <div>
-          <Button color="inherit">TBD</Button>
-          <Button color="inherit">TBD</Button>
-          <Button color="inherit">TBD</Button>
-        </div>
+        <Nav>
+          {children}
+          <NavButton
+            variant="contained"
+            aria-label="view cart"
+            startIcon={<MoreIcon />}
+            disableElevation
+          >
+            More
+          </NavButton>
+        </Nav>
       </CustomToolBar>
     </AppBar>
   );
 }
+
+NavBar.propTypes = {
+  children: PropTypes.element.isRequired,
+};

@@ -1,31 +1,34 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
-import { Button, Container } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import "./App.css";
 
-import NavBar from "./app-components/NavBar";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import WishListIcon from "@mui/icons-material/ListAlt";
+import NavBar, { NavButton } from "./app-components/NavBar";
 import Home from "./app-pages/Home";
 import Listings from "./app-pages/Listings";
-
-const NavButton = styled(Button)`
-  margin: 0 1rem;
-  a:link,
-  a:visited {
-    text-decoration: none;
-    color: white;
-  }
-`;
 
 export default function App() {
   return (
     <Router>
       <NavBar>
-        <NavButton variant="contained">
-          <Link to="/">Home</Link>
+        <NavButton
+          variant="contained"
+          aria-label="view cart"
+          startIcon={<ShoppingCartIcon />}
+          textSizeSmall
+          disableElevation
+        >
+          <Link to="/cart">Cart</Link>
         </NavButton>
-        <NavButton variant="contained">
-          <Link to="/listings">View Listings</Link>
+        <NavButton
+          variant="contained"
+          aria-label="view wish list"
+          startIcon={<WishListIcon />}
+          textSizeSmall
+          disableElevation
+        >
+          <Link to="/wishlist">Wishlist</Link>
         </NavButton>
       </NavBar>
 
