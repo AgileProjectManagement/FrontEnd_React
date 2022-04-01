@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material";
-import { withTheme } from "styled-components";
 
 const theme = createTheme({
   palette: {
@@ -23,6 +22,9 @@ const theme = createTheme({
     // two indexes within its tonal palette.
     // E.g., shift from Red 500 to Red 300 or Red 700.
     tonalOffset: 0.2,
+    background: {
+      default: "#303030",
+    },
   },
   typography: {
     fontFamily: "Nunito",

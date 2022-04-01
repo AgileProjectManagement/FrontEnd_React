@@ -4,6 +4,7 @@ import "./App.css";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WishListIcon from "@mui/icons-material/ListAlt";
+import { Container } from "@mui/material";
 import NavBar, { NavButton } from "./app-components/NavBar";
 import Home from "./app-pages/Home";
 import Listings from "./app-pages/Listings";
@@ -31,11 +32,12 @@ export default function App() {
           <Link to="/wishlist">Wishlist</Link>
         </NavButton>
       </NavBar>
-
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/listings" element={<Listings />} />
-      </Routes>
+      <Container element="main">
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/listings" element={<Listings />} />
+        </Routes>
+      </Container>
     </Router>
   );
 }
