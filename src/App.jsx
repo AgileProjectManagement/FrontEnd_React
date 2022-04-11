@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
-import "./App.css";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WishListIcon from "@mui/icons-material/ListAlt";
