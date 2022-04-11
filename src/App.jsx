@@ -7,6 +7,7 @@ import { Container } from "@mui/material";
 import NavBar, { NavButton } from "./app-components/NavBar";
 import Home from "./app-pages/Home";
 import Listings from "./app-pages/Listings";
+import ListingPage from "./app-pages/ListingPage";
 
 export default function App() {
   const navigate = useNavigate();
@@ -81,6 +82,7 @@ export default function App() {
             path="/listings"
             element={<Listings searchTerm={search} searchResults={listings} />}
           />
+          <Route path="/listings/:itemId" element={<ListingPage />} />
         </Routes>
       </Container>
     </>

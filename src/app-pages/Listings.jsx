@@ -15,6 +15,7 @@ import {
 
 import FilterList from "@mui/icons-material/FilterList";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import DropDownButton from "../app-components/DropDownButton";
 
 const Listing = styled(Card)`
@@ -22,8 +23,10 @@ const Listing = styled(Card)`
 `;
 
 export default function Listings({ searchResults }) {
+  const navigate = useNavigate();
   const listings = searchResults.listings || [];
   const sortOptions = ["Sort", "Price", "Alphabetical"];
+
   return (
     <Container element="section">
       <Toolbar sx={{ alignItems: "space-between" }}>
@@ -45,7 +48,7 @@ export default function Listings({ searchResults }) {
 
       <Grid container spacing={2} columns={12} sx={{ my: 3 }}>
         {listings.map((listing) => (
-          <Grid item xs={4}>
+          <Grid item xs={4} onClick={() => navigate(`./${listing.id}`)}>
             <Listing>
               <CardActionArea>
                 <CardMedia
