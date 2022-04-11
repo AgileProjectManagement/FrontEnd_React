@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-
+import React from "react";
+import PropTypes from "prop-types";
 import {
   Button,
   Container,
@@ -14,44 +14,21 @@ import {
 } from "@mui/material";
 
 import FilterList from "@mui/icons-material/FilterList";
+import { styled } from "@mui/material/styles";
 
-export default function Listings() {
-  const [listings, setListings] = useState([]);
+const Listing = styled(Card)`
+  maxwidth: 365px;
+`;
 
-  useEffect(async () => {
-    const serverListings = await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve([
-          {
-            name: "Chair",
-            id: 0,
-            price: "$18.99",
-            img: {
-              url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFo0egDlRfHUgOGqH3BA-lbmmwvfh3uyjxog&usqp=CAU",
-              altText: "A chair",
-            },
-          },
-          {
-            name: "Table",
-            id: 1,
-            price: "$50.50",
-            img: {
-              url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKnySpL-74DPqPBrLKETA1MPe3rV3jqoC-Jw&usqp=CAU",
-              altText: "A Table",
-            },
-          },
-        ]);
-      }, 300);
-    });
-
-    setListings(serverListings);
-  }, []);
-
+export default function Listings({ searchResults }) {
+  const listings = searchResults.listings || [];
   return (
     <Container element="section">
       <Toolbar sx={{ alignItems: "space-between" }}>
         <Container element="div">
-          <Typography fullWidth>+200 Results for Basketball Shoes</Typography>
+          <Typography fullWidth>
+            {`+${listings.length} Results for ${searchResults.searchTerm}`}
+          </Typography>
         </Container>
 
         <Button variant="contained">Sort-by:</Button>
@@ -63,7 +40,7 @@ export default function Listings() {
       <Grid container spacing={2} columns={12} sx={{ my: 3 }}>
         {listings.map((listing) => (
           <Grid item xs={4}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Listing>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -80,10 +57,27 @@ export default function Listings() {
                   </Typography>
                 </CardContent>
               </CardActionArea>
-            </Card>
+            </Listing>
           </Grid>
         ))}
       </Grid>
     </Container>
   );
 }
+
+Listings.propTypes = {
+  searchResults: PropTypes.shape({
+    searchTerm: PropTypes.string,
+    listings: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        id: PropTypes.number,
+        price: PropTypes.string,
+        img: {
+          url: PropTypes.string,
+          altText: PropTypes.string,
+        },
+      })
+    ),
+  }).isRequired,
+};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { styled, alpha } from "@mui/material/styles";
 import { AppBar, Toolbar, InputBase, Typography, Button } from "@mui/material";
@@ -72,29 +72,38 @@ export const NavButton = styled(Button)`
     margin: 0;
     padding: 0;
   }
+
   display: inline-flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
 `;
 
-export default function NavBar({ children }) {
+export default function NavBar({ searchAction, children }) {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <AppBar position="static">
       <CustomToolBar>
         <Name variant="h6" component="div" onClick={() => navigate("/")}>
           Lit Offer Up
         </Name>
-        <Search sx={{ width: "200px" }}>
+        <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            onClick={() => navigate("/listings")}
-          />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              searchAction(searchTerm);
+            }}
+          >
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </form>
         </Search>
         <Nav>
           {children}
@@ -114,4 +123,9 @@ export default function NavBar({ children }) {
 
 NavBar.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  searchAction: PropTypes.func,
+};
+
+NavBar.defaultProps = {
+  searchAction: () => null,
 };

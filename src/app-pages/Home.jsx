@@ -54,6 +54,7 @@ const CryptoIcon = styled("img")`
 
 const FirstIcon = styled(CryptoIcon)`
   animation: bannermove 30s linear infinite;
+
   @keyframes bannermove {
     0% {
       margin-left: 0px;
@@ -66,6 +67,7 @@ const FirstIcon = styled(CryptoIcon)`
     }
   }
 `;
+
 export default function HomePage() {
   const items = [
     "furniture",
