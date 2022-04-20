@@ -1,94 +1,29 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {
-  Button,
-  Container,
-  Divider,
-  Toolbar,
-  Typography,
-  Grid,
-  Card,
-  CardMedia,
-  CardActionArea,
-  CardContent,
-} from "@mui/material";
+import React, { useState, useEffect } from "react";
 
-import FilterList from "@mui/icons-material/FilterList";
-import { styled } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-import DropDownButton from "../app-components/DropDownButton";
+export default function Listings() {
+  const [listings, setListings] = useState([]);
 
-const Listing = styled(Card)`
-  maxwidth: 365px;
-`;
+  useEffect(async () => {
+    const serverListings = await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          { name: "Chair", id: 0 },
+          { name: "Table", id: 1 },
+        ]);
+      }, 300);
+    });
 
-export default function Listings({ searchResults }) {
-  const navigate = useNavigate();
-  const listings = searchResults.listings || [];
-  const sortOptions = ["Sort", "Price", "Alphabetical"];
+    setListings(serverListings);
+  }, []);
 
   return (
-    <Container element="section">
-      <Toolbar sx={{ alignItems: "space-between" }}>
-        <Container element="div">
-          <Typography fullWidth>
-            {`+${listings.length} Results for ${searchResults.searchTerm}`}
-          </Typography>
-        </Container>
-
-        <DropDownButton variant="contained" options={sortOptions}>
-          Sort:
-        </DropDownButton>
-        <Button variant="contained" startIcon={<FilterList />}>
-          Filter
-        </Button>
-      </Toolbar>
-
-      <Divider />
-
-      <Grid container spacing={2} columns={12} sx={{ my: 3 }}>
+    <section>
+      <h1>This is where the items that are for sale will be! </h1>
+      <ul>
         {listings.map((listing) => (
-          <Grid item xs={4} onClick={() => navigate(`./${listing.id}`)}>
-            <Listing>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={listing.img.url}
-                  alt={listing.img.altText}
-                />
-
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {listing.name}
-                  </Typography>
-
-                  <Typography variant="body2" color="text.secondary">
-                    {listing.price}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Listing>
-          </Grid>
+          <li key={listing.id}>{listing.name}</li>
         ))}
-      </Grid>
-    </Container>
+      </ul>
+    </section>
   );
 }
-
-Listings.propTypes = {
-  searchResults: PropTypes.shape({
-    searchTerm: PropTypes.string,
-    listings: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string,
-        id: PropTypes.number,
-        price: PropTypes.string,
-        img: {
-          url: PropTypes.string,
-          altText: PropTypes.string,
-        },
-      })
-    ),
-  }).isRequired,
-};

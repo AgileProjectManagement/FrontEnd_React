@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import "./index.css";
-import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import theme from "./MUITheme";
 import reportWebVitals from "./reportWebVitals";
@@ -10,9 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Router>
-        <App />
-      </Router>
+      <App />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
