@@ -13,23 +13,18 @@ import callAPI from "../api/api";
 import bitcoin from "../images/btc.png";
 import ethereum from "../images/eth.png";
 import doge from "../images/doge.png";
+import GoogleMap from "../app-components/GoogleMap";
 
 const ListingImage = styled("img")`
   border-radius: 0.5rem;
   margin-block: 1rem;
+  object-fit: contain;
 `;
 
 const ListingContainer = styled(Grid)`
   margin-block-start: 2rem;
 `;
-const MapPlaceholder = styled("div")`
-  display: block;
-  min-width: 300px;
-  min-height: 300px;
-  background-color: blue;
-  text-align: center;
-  color: white;
-`;
+
 const PriceIcon = styled("img")`
   display: inline-block;
   max-width: 1.5rem;
@@ -137,7 +132,7 @@ export default function ListingPage() {
           <Divider />
 
           <Grid container spacing={3} component="section">
-            <Grid item xs={8}>
+            <Grid item xs={10}>
               <Typography
                 variant="string"
                 component="h4"
@@ -154,7 +149,8 @@ export default function ListingPage() {
               >
                 Approximate Location
               </Typography>
-              <MapPlaceholder>This is a Map lol</MapPlaceholder>
+
+              <GoogleMap />
             </Grid>
 
             <Grid item xs={2}>
