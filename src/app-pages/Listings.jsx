@@ -84,10 +84,10 @@ Listings.propTypes = {
         name: PropTypes.string,
         id: PropTypes.number,
         price: PropTypes.string,
-        img: {
+        img: PropTypes.shape({
           url: PropTypes.string,
           altText: PropTypes.string,
-        },
+        }),
       })
     ),
   }).isRequired,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import WishListIcon from "@mui/icons-material/ListAlt";
 import { Container } from "@mui/material";
 import NavBar, { NavButton } from "./app-components/NavBar";
@@ -13,7 +13,7 @@ import callAPI from "./api/api";
 export default function App() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState({});
 
   const handleSearch = (searchTerm) => {
     setSearch(searchTerm);
@@ -32,7 +32,7 @@ export default function App() {
   return (
     <>
       <NavBar searchAction={handleSearch}>
-        <NavButton
+        {/* <NavButton
           variant="contained"
           aria-label="view cart"
           startIcon={<ShoppingCartIcon />}
@@ -41,12 +41,11 @@ export default function App() {
           onClick={() => navigate("/cart")}
         >
           Cart
-        </NavButton>
+        </NavButton> */}
         <NavButton
           variant="contained"
           aria-label="view wish list"
           startIcon={<WishListIcon />}
-          textSizeSmall
           disableElevation
           onClick={() => navigate("/wishlist")}
         >

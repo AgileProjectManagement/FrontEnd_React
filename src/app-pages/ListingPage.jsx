@@ -10,7 +10,6 @@ export default function ListingPage() {
   const [data, setData] = useState(null);
 
   useEffect(async () => {
-    // fetch detailed item data by id
     const listingData = await callAPI("products", "GET");
     setData(listingData[params.itemId]);
   }, []);
@@ -20,9 +19,9 @@ export default function ListingPage() {
   // }, [data]);
 
   return (
-    <>
+    <Container component="main">
       <Typography>Listing for item with id {params.itemId}</Typography>
-      {data && data.img && <img src={data.img.url} alt={data.img.url} />}
-    </>
+      {data && <img src={data.img.url} alt={data.img.url} />}
+    </Container>
   );
 }
