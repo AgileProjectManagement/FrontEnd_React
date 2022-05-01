@@ -31,7 +31,7 @@ export default function Listings({ searchResults }) {
     <Container element="section">
       <Toolbar sx={{ alignItems: "space-between" }}>
         <Container element="div">
-          <Typography fullWidth>
+          <Typography>
             {`+${listings.length} Results for ${searchResults.searchTerm}`}
           </Typography>
         </Container>
@@ -48,7 +48,12 @@ export default function Listings({ searchResults }) {
 
       <Grid container spacing={2} columns={12} sx={{ my: 3 }}>
         {listings.map((listing) => (
-          <Grid item xs={4} onClick={() => navigate(`./${listing.id}`)}>
+          <Grid
+            key={listing.id}
+            item
+            xs={4}
+            onClick={() => navigate(`./${listing.id}`)}
+          >
             <Listing>
               <CardActionArea>
                 <CardMedia
