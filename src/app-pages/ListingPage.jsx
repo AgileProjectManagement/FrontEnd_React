@@ -3,6 +3,7 @@ import { Button, Container, Divider, Toolbar, Typography } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
+import callAPI from "../api/api";
 
 export default function ListingPage() {
   const params = useParams();
@@ -10,7 +11,7 @@ export default function ListingPage() {
 
   useEffect(async () => {
     // fetch detailed item data by id
-    const listingData = await new Promise((resolve) => {
+    let listingData = await new Promise((resolve) => {
       setTimeout(() => {
         if (params.itemId === "0") {
           resolve({
@@ -35,15 +36,18 @@ export default function ListingPage() {
         }
       }, 300);
     });
-    setData(listingData);
+    listingData = await callAPI("products", "GET");
+    setData(listingData[params.itemId]);
   }, []);
 
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
+
   return (
-    data && (
-      <>
-        <Typography>Listing for item with id {params.itemId}</Typography>
-        <img src={data.img.url} alt={data.img.url} />
-      </>
-    )
+    <>
+      <Typography>Listing for item with id {params.itemId}</Typography>
+      {data && data.img && <img src={data.img.url} alt={data.img.url} />}
+    </>
   );
 }

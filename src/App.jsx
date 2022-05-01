@@ -8,6 +8,7 @@ import NavBar, { NavButton } from "./app-components/NavBar";
 import Home from "./app-pages/Home";
 import Listings from "./app-pages/Listings";
 import ListingPage from "./app-pages/ListingPage";
+import callAPI from "./api/api";
 
 export default function App() {
   const navigate = useNavigate();
@@ -20,34 +21,12 @@ export default function App() {
   };
 
   useEffect(async () => {
-    const serverListings = await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          searchTerm: search,
-          listings: [
-            {
-              name: "Chair",
-              id: 0,
-              price: "$18.99",
-              img: {
-                url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFo0egDlRfHUgOGqH3BA-lbmmwvfh3uyjxog&usqp=CAU",
-                altText: "A chair",
-              },
-            },
-            {
-              name: "Table",
-              id: 1,
-              price: "$50.50",
-              img: {
-                url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKnySpL-74DPqPBrLKETA1MPe3rV3jqoC-Jw&usqp=CAU",
-                altText: "A Table",
-              },
-            },
-          ],
-        });
-      }, 300);
-    });
-    setListings(serverListings);
+    const serverListings = await callAPI("products", "GET");
+    const searchData = {
+      searchTerm: search,
+      listings: serverListings,
+    };
+    setListings(searchData);
   }, [search]);
 
   return (
