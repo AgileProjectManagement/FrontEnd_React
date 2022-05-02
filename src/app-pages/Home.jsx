@@ -86,7 +86,7 @@ export default function HomePage() {
         alignItems="center"
         sx={{ width: "100%", height: "90vh" }}
       >
-        <Grid item direction="row" justifyContent="center">
+        <Grid container item direction="row" justifyContent="center">
           <Grid sx={{ display: "inline-block", margin: "7.5px" }} item>
             <Typography sx={{ color: theme.palette.primary.text }} variant="h2">
               {Math.floor(Math.random() * items.length) === 1 ? "Buy" : "Sell"}{" "}
