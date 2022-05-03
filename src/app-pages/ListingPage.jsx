@@ -14,12 +14,7 @@ import bitcoin from "../images/btc.png";
 import ethereum from "../images/eth.png";
 import doge from "../images/doge.png";
 import GoogleMap from "../app-components/GoogleMap";
-
-const ListingImage = styled("img")`
-  border-radius: 0.5rem;
-  margin-block: 1rem;
-  object-fit: contain;
-`;
+import ImageGallery from "../app-components/ImageGallery";
 
 const ListingContainer = styled(Grid)`
   margin-block-start: 2rem;
@@ -72,9 +67,13 @@ const ListingAside = styled("aside")`
 const AsideInfo = styled("div")`
   display: flex;
   flex-flow: column nowrap;
+  overflow:hidden;
 
   span {
     font-weight: 700;
+  }
+  button {
+    max-width:100%:
   }
 `;
 
@@ -92,27 +91,41 @@ function CoinPrice(src, coin) {
 export default function ListingPage() {
   const params = useParams();
   const [data, setData] = useState(null);
+  const [images, setImages] = useState([]);
   const [tags] = useState(["furniture", "modern", "wood", "used"]);
 
   useEffect(async () => {
-    const listingData = await callAPI("products", "GET");
-    setData(listingData[params.itemId]);
+    const listingData = await callAPI(`products/${params.itemId}`, "GET");
+    setData(listingData);
+    setImages([
+      listingData.image1,
+      listingData.image2,
+      listingData.image3,
+      listingData.image4,
+      listingData.image5,
+    ]);
   }, []);
 
   return (
     data && (
-      <ListingContainer container direction="row" spacing={4} component="main">
-        <Grid container direction="column" item xs={4}>
-          <ListingImage src={data.img.url} alt={data.img.url} />
-          <Typography variant="h4" component="p">
-            {data.price} USD
-          </Typography>
-          {CoinPrice(bitcoin, "bitcoin")}
-          {CoinPrice(ethereum, "ethereum")}
-          {CoinPrice(doge, "doge")}
+      <ListingContainer
+        container
+        direction={{ xs: "column", md: "row" }}
+        spacing={4}
+        component="main"
+      >
+        <Grid container direction={{ xs: "row", md: "column" }} item xs={4}>
+          <ImageGallery images={images} />
+          <div>
+            <Typography variant="h4" component="p">
+              {data.price} USD
+            </Typography>
+            {CoinPrice(bitcoin, "bitcoin")}
+            {CoinPrice(ethereum, "ethereum")}
+            {CoinPrice(doge, "doge")}
+          </div>
 
           <Button variant="contained">Buy Now</Button>
-
           <Button variant="contained">Send an Offer</Button>
 
           <TagContainer>
@@ -132,7 +145,7 @@ export default function ListingPage() {
           <Divider />
 
           <Grid container spacing={3} component="section">
-            <Grid item xs={10}>
+            <Grid item xs={9}>
               <Typography
                 variant="string"
                 component="h4"
@@ -140,7 +153,7 @@ export default function ListingPage() {
               >
                 Description
               </Typography>
-              <Typography>The actual description</Typography>
+              <Typography>{data.description}</Typography>
 
               <Typography
                 variant="string"
@@ -153,11 +166,12 @@ export default function ListingPage() {
               <GoogleMap />
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <ListingAside>
                 <AsideInfo>
                   <p>
-                    <span>Condition:</span>New
+                    <span>Condition:</span>
+                    {data.condition}
                   </p>
                   <p>
                     <span>Shipping:</span>None

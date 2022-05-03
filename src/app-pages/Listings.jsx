@@ -59,8 +59,8 @@ export default function Listings({ searchResults }) {
                 <CardMedia
                   component="img"
                   height="140"
-                  image={listing.img.url}
-                  alt={listing.img.altText}
+                  image={listing.image1}
+                  alt={listing.name}
                 />
 
                 <CardContent>
@@ -81,19 +81,22 @@ export default function Listings({ searchResults }) {
   );
 }
 
+Listing.propTypes = {
+  id: PropTypes.number,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  condition: PropTypes.number,
+  price: PropTypes.string,
+  image1: PropTypes.string,
+  image2: PropTypes.string,
+  image3: PropTypes.string,
+  image4: PropTypes.string,
+  image5: PropTypes.string,
+};
+
 Listings.propTypes = {
   searchResults: PropTypes.shape({
     searchTerm: PropTypes.string,
-    listings: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string,
-        id: PropTypes.number,
-        price: PropTypes.string,
-        img: PropTypes.shape({
-          url: PropTypes.string,
-          altText: PropTypes.string,
-        }),
-      })
-    ),
+    listings: PropTypes.arrayOf(PropTypes.shape(Listing.propTypes)),
   }).isRequired,
 };
