@@ -15,6 +15,7 @@ import ethereum from "../images/eth.png";
 import doge from "../images/doge.png";
 import GoogleMap from "../app-components/GoogleMap";
 import ImageGallery from "../app-components/ImageGallery";
+import CryptoPrice from "../app-components/CryptoPrice";
 
 const ListingContainer = styled(Grid)`
   margin-block-start: 2rem;
@@ -77,22 +78,12 @@ const AsideInfo = styled("div")`
   }
 `;
 
-function CoinPrice(src, coin) {
-  return (
-    <CryptoExchange>
-      <span>
-        <PriceIcon src={src} alt={coin} />
-      </span>
-      some price
-    </CryptoExchange>
-  );
-}
-
 export default function ListingPage() {
   const params = useParams();
   const [data, setData] = useState(null);
   const [images, setImages] = useState([]);
   const [tags] = useState(["furniture", "modern", "wood", "used"]);
+  const [price, setPrice] = useState(0);
 
   useEffect(async () => {
     const listingData = await callAPI(`products/${params.itemId}`, "GET");
@@ -104,8 +95,20 @@ export default function ListingPage() {
       listingData.image4,
       listingData.image5,
     ]);
+    setPrice(listingData.price);
+    console.log(listingData.price);
   }, []);
 
+  const coinPrice = (src, coin) => {
+    return (
+      <CryptoExchange>
+        <span>
+          <PriceIcon src={src} alt={coin} />
+        </span>
+        <CryptoPrice type={coin} usd={price} />
+      </CryptoExchange>
+    );
+  };
   return (
     data && (
       <ListingContainer
@@ -120,14 +123,13 @@ export default function ListingPage() {
             <Typography variant="h4" component="p">
               {data.price} USD
             </Typography>
-            {CoinPrice(bitcoin, "bitcoin")}
-            {CoinPrice(ethereum, "ethereum")}
-            {CoinPrice(doge, "doge")}
+            {coinPrice(bitcoin, "BTC")}
+            {coinPrice(ethereum, "ETH")}
+            {/* {CoinPrice(doge, "doge")} */}
           </div>
 
           <Button variant="contained">Buy Now</Button>
           <Button variant="contained">Send an Offer</Button>
-
           <TagContainer>
             {tags.map((tag) => (
               <Chip key={tag} label={tag} variant="outlined" />
