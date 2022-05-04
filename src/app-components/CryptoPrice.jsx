@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const APIKey = "A07D29A5-5E83-4BA3-939B-FAD81AFDEEEB";
-export default function CryptoPrice({ type = "BTC", price = 0 }) {
+export default function CryptoPrice({ type = "BTC", price = 99 }) {
   // give an initial state so that the data won't be undefined at start
   const [cprice, setPrice] = useState(0);
 
@@ -21,9 +21,9 @@ export default function CryptoPrice({ type = "BTC", price = 0 }) {
 
     ws.onmessage = function (event) {
       const json = JSON.parse(event.data);
-      console.log(price);
+      console.log("price inside hook: ", price);
       try {
-        setPrice((1 / json.rate) * price);
+        setPrice(json.rate);
       } catch (err) {
         console.log(err);
       }
@@ -31,7 +31,7 @@ export default function CryptoPrice({ type = "BTC", price = 0 }) {
     return () => ws.close();
   }, []);
 
-  return <span>{cprice}</span>;
+  return <span>{(1 / cprice) * price}</span>;
 }
 
 CryptoPrice.propTypes = {

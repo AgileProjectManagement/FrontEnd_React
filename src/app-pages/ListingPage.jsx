@@ -83,7 +83,7 @@ export default function ListingPage() {
   const [data, setData] = useState(null);
   const [images, setImages] = useState([]);
   const [tags] = useState(["furniture", "modern", "wood", "used"]);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(150);
 
   useEffect(async () => {
     const listingData = await callAPI(`products/${params.itemId}`, "GET");
@@ -96,16 +96,17 @@ export default function ListingPage() {
       listingData.image5,
     ]);
     setPrice(listingData.price);
-    console.log(listingData.price);
+    console.log("inside use effect: ", listingData.price);
   }, []);
 
   const coinPrice = (src, coin) => {
+    console.log("price: ", price);
     return (
       <CryptoExchange>
         <span>
           <PriceIcon src={src} alt={coin} />
         </span>
-        <CryptoPrice type={coin} usd={price} />
+        <CryptoPrice type={coin} price={200} />
       </CryptoExchange>
     );
   };
@@ -123,9 +124,15 @@ export default function ListingPage() {
             <Typography variant="h4" component="p">
               {data.price} USD
             </Typography>
-            {coinPrice(bitcoin, "BTC")}
-            {coinPrice(ethereum, "ETH")}
+            {/* {coinPrice(bitcoin, "BTC")} */}
+            {/* {coinPrice(ethereum, "ETH")} */}
             {/* {CoinPrice(doge, "doge")} */}
+            <CryptoExchange>
+              <span>
+                <PriceIcon src={bitcoin} alt="bitcoin" />
+              </span>
+              <CryptoPrice type="BTC" price={price} />
+            </CryptoExchange>
           </div>
 
           <Button variant="contained">Buy Now</Button>
