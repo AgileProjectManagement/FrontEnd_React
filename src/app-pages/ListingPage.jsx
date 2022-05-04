@@ -16,6 +16,7 @@ import doge from "../images/doge.png";
 import GoogleMap from "../app-components/GoogleMap";
 import ImageGallery from "../app-components/ImageGallery";
 import CryptoPrice from "../app-components/CryptoPrice";
+import "../coolspinner.css";
 
 const ListingContainer = styled(Grid)`
   margin-block-start: 2rem;
@@ -84,6 +85,7 @@ export default function ListingPage() {
   const [images, setImages] = useState([]);
   const [tags] = useState(["furniture", "modern", "wood", "used"]);
   const [price, setPrice] = useState(150);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   useEffect(async () => {
     const listingData = await callAPI(`products/${params.itemId}`, "GET");
@@ -98,6 +100,15 @@ export default function ListingPage() {
     setPrice(listingData.price);
     console.log("inside use effect: ", listingData.price);
   }, []);
+
+  const onBuyButtonClick = async () => {
+    setCheckoutLoading(!checkoutLoading);
+    const checkoutCreationData = await callAPI(
+      `checkout/${params.itemId}`,
+      "POST"
+    );
+    window.open(checkoutCreationData, "_blank"); // to open new page
+  };
 
   const coinPrice = (src, coin) => {
     console.log("price: ", price);
@@ -134,8 +145,15 @@ export default function ListingPage() {
               <CryptoPrice type="BTC" price={price} />
             </CryptoExchange>
           </div>
-
-          <Button variant="contained">Buy Now</Button>
+          {checkoutLoading ? (
+            <div className="lds-circle">
+              <div />
+            </div>
+          ) : (
+            <Button variant="contained" onClick={() => onBuyButtonClick()}>
+              Buy Now
+            </Button>
+          )}
           <Button variant="contained">Send an Offer</Button>
           <TagContainer>
             {tags.map((tag) => (
